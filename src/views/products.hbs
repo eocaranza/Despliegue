@@ -1,0 +1,27 @@
+<p><strong>{{error}}</strong></p>
+<p>Bienvenido {{user.role}} {{user.first_name}}</p>
+
+{{#if required.payload}}
+    <h1>Listado de Productos</h1>
+    <ul>
+    {{#each required.payload}}
+        <li><a href="products/{{this._id}}"> {{this.name}}</a></li>
+        <button onclick="addToCart('{{this._id}}')">Agregar al carrito</button>
+    {{/each}}
+    </ul>
+    {{#if hasPrevPage}}
+        <a href={{prevLink}}>Anterior</a>
+    {{/if}}
+    {{page}}
+    {{#if hasNextPage}}
+        <a href={{nextLink}}>Siguiente</a>
+    {{/if}}
+{{else}}
+    <h2>No hay productos</h2>
+{{/if}}
+<br/><br/>
+<button onclick="purchase()">Finalizar Compra</button>
+<div></div>
+<a href="/api/sessions/logout">Cerrar sesión</a>
+
+<script src="/js/products.js"></script>

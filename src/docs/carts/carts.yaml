@@ -1,0 +1,346 @@
+paths:
+  /api/carts:
+    get:
+      summary: Endpoint para obtener todos los carritos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se obtuvieron correctamente los carritos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Cart"
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    post:
+      summary: Endpoint para crear un carrito
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/CreateCart"
+      responses:
+        "200":
+          description: Se creó correctamente el carrito
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+  /api/carts/{cid}:
+    get:
+      summary: Endpoint para obtener información de un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se obtuvo correctamente el carrito
+          content:
+            application/json:
+              schema:
+                  $ref: "#components/schemas/Cart"
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    put:
+      summary: Endpoint para actualizar información de un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/UpdateCart"
+      responses:
+        "200":
+          description: Se actualizó correctamente el carrito
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    delete:
+      summary: Endpoint para borrar un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se actualizó correctamente el carrito
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Endpoint para agregar un producto a un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se agregó correctamente el producto
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    put:
+        summary: Endpoint para editar la cantidad de un producto en un carrito
+        tags:
+          - Carts
+        parameters:
+          - name: cid
+            in: path
+            required: true
+            description: id del carrito
+            schema:
+              type: string
+          - name: pid
+            in: path
+            required: true
+            description: id del producto
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#components/requestBodies/UpdateQuantity"
+        responses:
+          "200":
+            description: Se editó correctamente la cantidad
+            content:
+              application/json:
+                schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                      message:
+                        type: string
+          "401":
+            description: No tienes permisos para acceder a esta ruta
+          "500":
+            description: Se produjo un error en el servidor
+    delete:
+        summary: Endpoint para borrar un producto de un carrito
+        tags:
+          - Carts
+        parameters:
+          - name: cid
+            in: path
+            required: true
+            description: id del carrito
+            schema:
+              type: string
+          - name: pid
+            in: path
+            required: true
+            description: id del producto
+            schema:
+              type: string
+        responses:
+          "200":
+            description: Se borró correctamente el producto
+            content:
+              application/json:
+                schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                      message:
+                        type: string
+          "401":
+            description: No tienes permisos para acceder a esta ruta
+          "500":
+            description: Se produjo un error en el servidor
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Endpoint para reaizar compra de un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se realizó correctamente la compra
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id de producto generado por MongoDB
+        products:
+          type: array
+          description: Arreglo de productos
+          items:
+            type: object
+            properties:
+              product:
+                type: ObjectId
+                description: Id del producto
+              quantity:
+                type: number
+                description: Cantidad del producto
+      example:
+        _id: 6519b8b9d62cb1fe1fd0bbab
+        products:
+          -
+            product: 64cd727a84df1b2f204e225e
+            quantity: 15
+          -
+            product: 64cd71b3916031fb59bcb136
+            quantity: 20
+  requestBodies:
+    CreateCart:
+      type: object
+      properties:
+        products:
+          type: array
+          description: Arreglo de productos
+          items:
+            type: object
+            properties:
+              product:
+                type: ObjectId
+                description: Id del producto
+              quantity:
+                type: number
+                description: Cantidad del producto
+      example:
+        products:
+          -
+            product: 64cd727a84df1b2f204e225e
+            quantity: 15
+          -
+            product: 64cd71b3916031fb59bcb136
+            quantity: 20
+    UpdateCart:
+      type: object
+      properties:
+        products:
+          type: array
+          description: Arreglo de productos
+          items:
+            type: object
+            properties:
+              product:
+                type: ObjectId
+                description: Id del producto
+              quantity:
+                type: number
+                description: Cantidad del producto
+      example:
+        products:
+          -
+            product: 64cd727a84df1b2f204e225e
+            quantity: 15
+          -
+            product: 64cd71b3916031fb59bcb136
+            quantity: 20
+    UpdateQuantity:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Cantidad del producto
+      example:
+        quantity: 20

@@ -1,0 +1,20 @@
+[
+	{
+		"title": "titulo1",
+		"descripcion": "descripcion1",
+		"price": "1",
+		"thumbnail": "thumbnail1",
+		"code": "code1",
+		"stock": "stock1",
+		"id": 1
+	},
+	{
+		"title": "titulo2",
+		"descripcion": "descripcion2",
+		"price": "2",
+		"thumbnail": "thumbnail2",
+		"code": "code2",
+		"stock": "stock2",
+		"id": 2
+	}
+]

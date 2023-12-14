@@ -1,0 +1,13 @@
+<h1>Formulario de Login</h1>
+<p>{{message}}</p>
+<p style="color:red">{{error}}</p>
+
+<form method="post" action="/api/sessions/login">
+    <input type="email" placeholder="Correo" name="email"/>
+    <br/><br/>
+    <input type="password" placeholder="Contraseña" name="password"/>
+    <br/><br/>
+    <button>Enviar</button>
+</form>
+<hr>
+<a href="/forgot-password">Olvidé mi contraseña</a>

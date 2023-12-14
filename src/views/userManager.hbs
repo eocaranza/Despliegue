@@ -1,0 +1,20 @@
+<p><strong>{{error}}</strong></p>
+<p>Bienvenido {{user.role}} {{user.first_name}}</p>
+
+{{#if required}}
+    <h1>Listado de Usuarios</h1>
+    <ul>
+    {{#each required}}
+        <li><a> Nombre: {{this.first_name}}</a></li>
+        <li><a> Correo: {{this.email}}</a></li>
+        <li><a> Rol: {{this.role}}</a></li>
+        <button onclick="modifyRole('{{this._id}}')">Cambiar rol</button>
+        <button onclick="deleteUser('{{this._id}}')">Eliminar</button>
+    {{/each}}
+    </ul>
+{{else}}
+    <h2>No hay usuarios</h2>
+{{/if}}
+<br/><br/>
+
+<script src="/js/users.js"></script>

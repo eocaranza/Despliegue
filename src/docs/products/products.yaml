@@ -1,0 +1,220 @@
+paths:
+  /api/products:
+    get:
+      summary: Endpoint para obtener todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Se obtuvieron correctamente los productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    post:
+      summary: Endpoint para crear un producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/CreateProduct"
+      responses:
+        "200":
+          description: Se creó correctamente el producto
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+  /api/products/{pid}:
+    get:
+      summary: Endpoint para obtener información de un producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se obtuvo correctamente el producto
+          content:
+            application/json:
+              schema:
+                  $ref: "#components/schemas/Product"
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    put:
+      summary: Endpoint para actualizar información de un producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/UpdateProduct"
+      responses:
+        "200":
+          description: Se actualizó correctamente el producto
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+    delete:
+      summary: Endpoint para borrar un producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se actualizó correctamente el producto
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+        "401":
+          description: No tienes permisos para acceder a esta ruta
+        "500":
+          description: Se produjo un error en el servidor
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id de producto generado por MongoDB
+        name:
+          type: string
+          description: Nombre del producto
+        price:
+          type: number
+          description: Precio del producto
+        code:
+          type: string
+          description: Codigo de producto generado automáticamente
+        category:
+          type: string
+          description: Categoría del producto
+        stock:
+          type: number
+          description: Stock del producto
+        owner:
+          type: ObjectId
+          description: Id del usuario que generó el producto
+      example:
+        _id: 64cd71b3916031fb59bcb136
+        name: Laundromatic
+        price: 250
+        code: Ajjasnoas
+        category: Ropa
+        stock: 20
+        owner: 65199cbb74b43f2391b77d4f
+  requestBodies:
+    CreateProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del producto
+        price:
+          type: number
+          description: Precio del producto
+        code:
+          type: string
+          description: Codigo de producto generado automáticamente
+        category:
+          type: string
+          description: Categoría del producto
+        stock:
+          type: number
+          description: Stock del producto
+        owner:
+          type: ObjectId
+          description: Id del usuario que generó el producto
+      example:
+        name: Laundromatic
+        price: 250
+        code: Ajjasnoas
+        category: Ropa
+        stock: 20
+        owner: 65199cbb74b43f2391b77d4f
+    UpdateProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del producto
+        price:
+          type: number
+          description: Precio del producto
+        code:
+          type: string
+          description: Codigo de producto generado automáticamente
+        category:
+          type: string
+          description: Categoría del producto
+        stock:
+          type: number
+          description: Stock del producto
+        owner:
+          type: ObjectId
+          description: Id del usuario que generó el producto
+      example:
+        name: Laundromatic
+        price: 250
+        code: Ajjasnoas
+        category: Ropa
+        stock: 20
+        owner: 65199cbb74b43f2391b77d4f
